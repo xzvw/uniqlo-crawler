@@ -6,15 +6,6 @@ const endpointUrl = (productCode: string) =>
   `http://www.uniqlo.com/tw/data/products/prodInfo/zh_TW/${productCode}.json`
 
 const date = new Date()
-const year = String(date.getFullYear())
-const month = Utils.prependZero({
-  str: String(date.getMonth() + 1),
-  targetLength: 2,
-})
-const day = Utils.prependZero({
-  str: String(date.getDate()),
-  targetLength: 2,
-})
 
 async function main() {
   const productsOnSell: Array<Record<string, any>> = []
@@ -23,7 +14,7 @@ async function main() {
   // If `./json` directory doesn't exist, then create it.
 
   for (const productCode of productCodeList) {
-    const filename = `${year}${month}${day}-${productCode}.json`
+    const filename = Utils.generateFilename({ date, productCode })
     const fullPath = `./json/${filename}`
 
     if (fs.existsSync(fullPath)) {
