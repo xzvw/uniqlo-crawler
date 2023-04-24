@@ -1,18 +1,20 @@
 import fs from 'fs'
 import productCodeList from './productCodeList'
-
-const addLeadingZero = (str: string, targetLen = 2) => {
-  const numOfZero = Math.max(targetLen - str.length, 0)
-  return `${new Array(numOfZero).fill('0').join('')}${str}`
-}
+import Utils from './Utils'
 
 const endpointUrl = (productCode: string) =>
   `http://www.uniqlo.com/tw/data/products/prodInfo/zh_TW/${productCode}.json`
 
 const date = new Date()
 const year = String(date.getFullYear())
-const month = addLeadingZero(String(date.getMonth() + 1))
-const day = addLeadingZero(String(date.getDate()))
+const month = Utils.prependZero({
+  str: String(date.getMonth() + 1),
+  targetLength: 2,
+})
+const day = Utils.prependZero({
+  str: String(date.getDate()),
+  targetLength: 2,
+})
 
 async function main() {
   const productsOnSell: Array<Record<string, any>> = []
