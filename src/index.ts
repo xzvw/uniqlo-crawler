@@ -17,6 +17,9 @@ const day = addLeadingZero(String(date.getDate()))
 async function main() {
   const productsOnSell: Array<Record<string, any>> = []
 
+  // @todo
+  // If `./json` directory doesn't exist, then create it.
+
   for (const productCode of productCodeList) {
     const filename = `${year}${month}${day}-${productCode}.json`
     const fullPath = `./json/${filename}`
