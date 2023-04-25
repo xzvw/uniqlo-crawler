@@ -1,4 +1,6 @@
 import fs from 'fs'
+import path from 'path'
+import config from './config'
 import productCodeList from './productCodeList'
 import { ProductInformation } from './types'
 import Utils from './Utils'
@@ -10,14 +12,13 @@ const date = new Date()
 
 class Crawler {
   static async start() {
-    const productsOnSell: Array<ProductInformation> = []
+    this.prepareOutputDirectory()
 
-    // @todo
-    // If `./json` directory doesn't exist, then create it.
+    const productsOnSell: Array<ProductInformation> = []
 
     for (const productCode of productCodeList) {
       const filename = Utils.generateFilename({ date, productCode })
-      const fullPath = `./json/${filename}`
+      const fullPath = path.resolve(config.outputDirectory, filename)
 
       if (fs.existsSync(fullPath)) {
         console.log(`${filename} exists, continue`)
@@ -47,6 +48,12 @@ class Crawler {
 
     console.log('--- productsOnSell ---')
     console.log(JSON.stringify(productsOnSell, null, 2))
+  }
+
+  private static prepareOutputDirectory() {
+    if (!fs.existsSync(config.outputDirectory)) {
+      fs.mkdirSync(config.outputDirectory)
+    }
   }
 }
 
