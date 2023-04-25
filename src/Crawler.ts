@@ -5,14 +5,13 @@ import productCodeList from './productCodeList'
 import { ProductInformation } from './types'
 import Utils from './Utils'
 
-const date = new Date()
-
 class Crawler {
   static async start() {
     this.prepareOutputDirectory()
 
     const productsOnSell: Array<ProductInformation> = []
 
+    const date = new Date()
     for (const productCode of productCodeList) {
       const filename = Utils.generateFilename({ date, productCode })
       const fullPath = path.resolve(config.outputDirectory, filename)
