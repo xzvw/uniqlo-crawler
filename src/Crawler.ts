@@ -31,8 +31,8 @@ class Crawler {
           const { name, originPrice, minPrice, maxPrice } = json
           if (originPrice !== minPrice || originPrice !== maxPrice) {
             productsOnSell.push({
-              name,
               productCode,
+              name,
               originPrice,
               minPrice,
               maxPrice,
