@@ -1,5 +1,4 @@
 import fs from 'fs'
-import path from 'path'
 import config from './config'
 import productCodeList from './productCodeList'
 import { ProductInformation } from './types'
@@ -13,8 +12,11 @@ class Crawler {
 
     const date = new Date()
     for (const productCode of productCodeList) {
-      const filename = Utils.generateFilename({ date, productCode })
-      const fullPath = path.resolve(config.outputDirectory, filename)
+      const { filename, fullPath } = Utils.getOutputFileInfo({
+        directory: config.outputDirectory,
+        date,
+        productCode,
+      })
 
       if (fs.existsSync(fullPath)) {
         console.log(`${filename} exists, continue`)

@@ -1,6 +1,22 @@
+import path from 'path'
 import { ProductCode } from './types'
 
 class Utils {
+  static getOutputFileInfo({
+    directory,
+    date,
+    productCode,
+  }: {
+    directory: string
+    date: Date
+    productCode: ProductCode
+  }) {
+    const filename = Utils.generateFilename({ date, productCode })
+    const fullPath = path.resolve(directory, filename)
+
+    return { filename, fullPath }
+  }
+
   static generateFilename({
     date,
     productCode,
