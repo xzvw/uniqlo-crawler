@@ -1,5 +1,6 @@
 import fs from 'fs'
 import productCodeList from './productCodeList'
+import { ProductInformation } from './types'
 import Utils from './Utils'
 
 const endpointUrl = (productCode: string) =>
@@ -9,7 +10,7 @@ const date = new Date()
 
 class Crawler {
   static async start() {
-    const productsOnSell: Array<Record<string, any>> = []
+    const productsOnSell: Array<ProductInformation> = []
 
     // @todo
     // If `./json` directory doesn't exist, then create it.
