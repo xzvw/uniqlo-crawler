@@ -40,7 +40,7 @@ class Crawler {
           }
         })
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await Utils.sleep(1000)
     }
 
     console.log('--- productsOnSell ---')

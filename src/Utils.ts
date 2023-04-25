@@ -25,6 +25,10 @@ class Utils {
     return `http://www.uniqlo.com/tw/data/products/prodInfo/zh_TW/${productCode}.json`
   }
 
+  static sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
   private static prependZero({
     str,
     targetLength,
