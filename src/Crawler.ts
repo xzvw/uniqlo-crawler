@@ -22,23 +22,21 @@ class Crawler {
         continue
       }
 
-      fetch(Utils.getProductInfoJsonUrl(productCode))
-        .then((res) => res.json())
-        .then((json) => {
-          fs.writeFileSync(fullPath, JSON.stringify(json, null, 2))
-          console.log(`Write ${filename}`)
+      const productInfo = await this.fetchProductInfo(productCode)
 
-          const { name, originPrice, minPrice, maxPrice } = json
-          if (originPrice !== minPrice || originPrice !== maxPrice) {
-            productsOnSell.push({
-              productCode,
-              name,
-              originPrice,
-              minPrice,
-              maxPrice,
-            })
-          }
+      fs.writeFileSync(fullPath, JSON.stringify(productInfo, null, 2))
+      console.log(`Write ${filename}`)
+
+      const { name, originPrice, minPrice, maxPrice } = productInfo
+      if (originPrice !== minPrice || originPrice !== maxPrice) {
+        productsOnSell.push({
+          productCode,
+          name,
+          originPrice,
+          minPrice,
+          maxPrice,
         })
+      }
 
       await Utils.sleep(1000)
     }
@@ -51,6 +49,12 @@ class Crawler {
     if (!fs.existsSync(config.outputDirectory)) {
       fs.mkdirSync(config.outputDirectory)
     }
+  }
+
+  private static fetchProductInfo(productCode: string) {
+    return fetch(Utils.getProductInfoJsonUrl(productCode)).then((res) =>
+      res.json()
+    )
   }
 }
 
