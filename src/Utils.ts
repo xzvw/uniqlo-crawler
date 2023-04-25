@@ -21,6 +21,10 @@ class Utils {
     return `${year}${month}${day}-${productCode}.json`
   }
 
+  static getProductInfoJsonUrl(productCode: string) {
+    return `http://www.uniqlo.com/tw/data/products/prodInfo/zh_TW/${productCode}.json`
+  }
+
   private static prependZero({
     str,
     targetLength,

@@ -5,9 +5,6 @@ import productCodeList from './productCodeList'
 import { ProductInformation } from './types'
 import Utils from './Utils'
 
-const endpointUrl = (productCode: string) =>
-  `http://www.uniqlo.com/tw/data/products/prodInfo/zh_TW/${productCode}.json`
-
 const date = new Date()
 
 class Crawler {
@@ -25,7 +22,7 @@ class Crawler {
         continue
       }
 
-      fetch(endpointUrl(productCode))
+      fetch(Utils.getProductInfoJsonUrl(productCode))
         .then((res) => res.json())
         .then((json) => {
           fs.writeFileSync(fullPath, JSON.stringify(json, null, 2))
