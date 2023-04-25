@@ -1,14 +1,14 @@
 import fs from 'fs'
 import config from './config'
 import productCodeList from './productCodeList'
-import { ProductInformation } from './types'
+import { ProductInfo } from './types'
 import Utils from './Utils'
 
 class Crawler {
   static async start() {
     this.prepareOutputDirectory()
 
-    const productsOnSell: Array<ProductInformation> = []
+    const productsOnSell: Array<ProductInfo> = []
 
     const date = new Date()
     for (const productCode of productCodeList) {

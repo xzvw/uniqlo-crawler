@@ -1,6 +1,6 @@
 export type ProductCode = string
 
-export type ProductInformation = {
+export type ProductInfo = {
   productCode: ProductCode
   name: string
   originPrice: number
